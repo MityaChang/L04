@@ -7,6 +7,7 @@
  */
 
 import React from 'react';
+import moment from 'moment-timezone';
 import {
   SafeAreaView,
   StyleSheet,
@@ -25,53 +26,94 @@ import {
 } from 'react-native/Libraries/NewAppScreen';
 
 const App: () => React$Node = () => {
+  console.log("Listing semester modules and recommended eats")
   return (
-    <>
-      <StatusBar barStyle="dark-content" />
-      <SafeAreaView>
-        <ScrollView
-          contentInsetAdjustmentBehavior="automatic"
-          style={styles.scrollView}>
-          <Header />
-          {global.HermesInternal == null ? null : (
-            <View style={styles.engine}>
-              <Text style={styles.footer}>Engine: Hermes</Text>
+      <>
+        <StatusBar barStyle="dark-content" />
+        <SafeAreaView>
+          <ScrollView
+              contentInsetAdjustmentBehavior="automatic"
+              style={styles.scrollView}>
+            <Header />
+            {global.HermesInternal == null ? null : (
+                <View style={styles.engine}>
+                  <Text style={styles.footer}>Engine: Hermes</Text>
+                </View>
+            )}
+            <View style={styles.body}>
+              <View style={styles.sectionContainer}>
+                <Welcome />
+                <MyFirstApp />
+                <Text></Text>
+                <Text>My modules for this semester:</Text>
+                <SemModule day="Monday" moduleCode="C348" />
+                <SemModule day="Tuesday" moduleCode="C273" />
+                <SemModule day="Wednesday" moduleCode="C300" />
+                <SemModule day="Friday" moduleCode="C308" />
+                <Text></Text>
+                <Text>Recommended Eats @ RP</Text>
+                <Eats name="Sweet Tooth Waffles" location="W6 Level 1,E-canteen" />
+                <Text></Text>
+                <Eats name="Crowded bowl" location="W4/W6 Lawn Canteen" />
+                <Text></Text>
+                <Eats name="Western Cusine @ Koufu" location="E1 Level 1,kofu" />
+                <Text></Text>
+                <Eats name="Ayam Penyet" location="W4/W6 Lawn Canteen" />
+                <Text></Text>
+                <Text>World Clock</Text>
+                <WorldClock />
+              </View>
             </View>
-          )}
-          <View style={styles.body}>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>Step One</Text>
-              <Text style={styles.sectionDescription}>
-                Edit <Text style={styles.highlight}>App.js</Text> to change this
-                screen and then come back to see your edits.
-              </Text>
-            </View>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>See Your Changes</Text>
-              <Text style={styles.sectionDescription}>
-                <ReloadInstructions />
-              </Text>
-            </View>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>Debug</Text>
-              <Text style={styles.sectionDescription}>
-                <DebugInstructions />
-              </Text>
-            </View>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>Learn More</Text>
-              <Text style={styles.sectionDescription}>
-                Read the docs to discover what to do next:
-              </Text>
-            </View>
-            <LearnMoreLinks />
-          </View>
-        </ScrollView>
-      </SafeAreaView>
-    </>
+          </ScrollView>
+        </SafeAreaView>
+      </>
   );
 };
+//Excercise 1
+const Welcome = () => {
+  return <Text>Welcome to C308 Lesson 4!</Text>;
+};
+//Excercise 2
+class MyFirstApp extends React.Component {
+  render() {
+    return <Text>My first React Native App </Text>;
+  }
+}
+//Excercise 3
+const SemModule = (props) => {
+  return (
+      <Text>
+        {props.day} - {props.moduleCode}
+      </Text>
+  );
+};
+//Excercise 4
+class Eats extends React.Component{
+  render() {
+    return(
+        <Text> {this.props.name} {'\n'} {this.props.location} </Text>
+    )
+  }
+}
+//Mini Projects
+class Clock extends React.Component{
+  render() {
+    let location = this.props.name;
+    var time = moment.tz(location).format('HH mm Z');
+    return <Text>{location} - {time} </Text>
+  }
+}
+const WorldClock = () => {
+  return(
+      <View>
+        <Clock name ="Asia/Singapore"/>
+        <Clock name ="Europe/London"/>
+        <Clock name ="America/New_York"/>
+        <Clock name ="Europe/Oslo"/>
+      </View>
+      )
 
+}
 const styles = StyleSheet.create({
   scrollView: {
     backgroundColor: Colors.lighter,
