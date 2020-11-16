@@ -27,6 +27,7 @@ import {
 
 const App: () => React$Node = () => {
   console.log("Listing semester modules and recommended eats")
+  console.log("test123 123")
   return (
       <>
         <StatusBar barStyle="dark-content" />
